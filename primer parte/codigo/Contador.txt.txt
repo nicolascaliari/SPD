@@ -1,0 +1,338 @@
+/*
+Diseñar un contador de 0 a 99 utilizando dos displays de 7 segmentos y tres botones para
+controlar la cuenta. Debes implementar la técnica de multiplexación para mostrar los dígitos
+en los displays. El contador debe comenzar en 0 y debe ser capaz de aumentar o disminuir
+su valor en una unidad con los botones.
+*/
+
+  
+// Definición de pines para los segmentos de los displays de 7 segmentos y botones
+
+  
+#define A 7
+#define	B 8
+#define C 9
+#define D 10 
+#define E 11
+#define F 12
+#define G 13
+#define displayUni A5
+#define displayDec A4
+#define aumenta 6
+#define reduce 5
+#define reset 4
+
+
+
+// Variables para el control del tiempo
+unsigned long tiempoAnterior = 0;
+unsigned long intervalo = 1000;
+unsigned long tiempoPulsadorAnterior = 0;
+unsigned long intervaloPulsador = 2000;
+
+
+// Variables de estado y contador
+int flag = 0;
+int flagPulsadorAumenta = 0;
+int flagPulsadorReduce = 0;
+int contador = 0;
+int auxAumenta = 0;
+int auxReduce = 0;
+int auxReset = 0;
+int apagados = 0;
+int decena = 0;
+int unidad = 0;
+int delayDisplay = 5;
+  
+void setup ()
+{
+  // Inicialización de pines
+  
+  Serial.begin(9600);
+  pinMode(A, OUTPUT);
+  pinMode(B, OUTPUT);
+  pinMode(C, OUTPUT);
+  pinMode(D, OUTPUT);
+  pinMode(E, OUTPUT);
+  pinMode(F, OUTPUT);
+  pinMode(G, OUTPUT);
+  pinMode(aumenta, INPUT_PULLUP);
+  pinMode(reduce, INPUT_PULLUP);
+  pinMode(reset, INPUT_PULLUP);
+  pinMode(displayUni, OUTPUT);
+  pinMode(displayDec, OUTPUT);
+  digitalWrite(displayUni, HIGH);
+  digitalWrite(displayDec, HIGH);
+}
+
+void loop ()
+{
+  unsigned long tiempoActual = millis();
+  
+  
+  // Actualizar el flag cada intervalo de tiempo
+  if(tiempoActual - tiempoAnterior >= intervalo)
+  {
+    tiempoAnterior = tiempoActual;
+    flag = 1;
+  }
+  
+  
+  // Incrementar el contador si el flag está activo
+  if(flag == 1)
+  {
+    contador++;
+    flag = 0;
+  }
+  
+  // Leer el botón presionado y realizar las acciones correspondientes
+  int presionar = validador();  
+  if(presionar == aumenta) 
+    {
+      Serial.println(contador);
+      contador++;
+    }
+    if(contador > 99)
+    {
+      contador = 0;
+    }
+
+  if(presionar == reduce)
+  {
+    Serial.println(contador);
+    contador--;
+    if(contador < 0)
+      {
+        contador = 99;
+      }  
+  } 
+  
+  if(presionar == reset)
+  {
+    contador = 0;
+    Serial.println(contador);
+  }  
+  administrador(contador); 
+}
+
+
+// Función para mostrar los dígitos en los displays de 7 segmentos
+void administrador (int contador) 
+{
+  //si no los pongo en 0 entra al if de todos en cada ocasion
+  
+   // Apagar los displays
+  display(apagados = 1); 
+  apagados = 0;
+  
+  // Mostrar la decena
+  numerosDisplay(contador/10);
+  display(decena = 1);
+  decena = 0;
+  
+  // Apagar los displays
+  display(apagados = 1);
+  apagados = 0;
+  
+  
+  // Mostrar la unidad
+  numerosDisplay(contador - 10*((int)contador/10));
+  display(unidad = 1);
+  unidad = 0;
+}
+
+
+
+// Función para controlar la visualización en los displays
+void display (int digito) 
+{ 
+   if(apagados)
+  {
+    digitalWrite(displayUni, HIGH);
+    digitalWrite(displayDec, HIGH);
+    delay(delayDisplay);
+  }
+  if(unidad)
+  { 
+    digitalWrite(displayUni, LOW);
+    digitalWrite(displayDec, HIGH);
+    delay(delayDisplay);
+  }
+  if(decena)
+  {
+    digitalWrite(displayUni, HIGH);
+    digitalWrite(displayDec, LOW);
+    delay(delayDisplay);
+  }
+} 
+
+
+
+// Función para mapear los números a los segmentos del display de 7 segmentos
+void numerosDisplay (int numero)
+{
+  // Implementación de los dígitos en los segmentos
+  // (cada caso representa un número del 0 al 9)
+  switch (numero)
+  {
+    case 0:  
+      digitalWrite(A, HIGH);
+      digitalWrite(B, HIGH);
+      digitalWrite(C, HIGH);
+      digitalWrite(D, HIGH);
+      digitalWrite(E, HIGH);
+      digitalWrite(F, HIGH);
+      digitalWrite(G, LOW);
+    break;
+    case 1:
+      digitalWrite(A, LOW);
+      digitalWrite(B, HIGH);
+      digitalWrite(C, HIGH);
+      digitalWrite(D, LOW);
+      digitalWrite(E, LOW);
+      digitalWrite(F, LOW);
+      digitalWrite(G, LOW);
+    break;
+    case 2:
+      digitalWrite(A, HIGH);
+      digitalWrite(B, HIGH);
+      digitalWrite(C, LOW);
+      digitalWrite(D, HIGH);
+      digitalWrite(E, HIGH);
+      digitalWrite(F, LOW);
+      digitalWrite(G, HIGH);
+    break;
+    case 3:
+      digitalWrite(A, HIGH);
+      digitalWrite(B, HIGH);
+      digitalWrite(C, HIGH);
+      digitalWrite(D, HIGH);
+      digitalWrite(E, LOW);
+      digitalWrite(F, LOW);
+      digitalWrite(G, HIGH);
+    break;
+    case 4:
+      digitalWrite(A, LOW);
+      digitalWrite(B, HIGH);
+      digitalWrite(C, HIGH);
+      digitalWrite(D, LOW);
+      digitalWrite(E, LOW);
+      digitalWrite(F, HIGH);
+      digitalWrite(G, HIGH);
+    break;
+    case 5:
+      digitalWrite(A, HIGH);
+      digitalWrite(B, LOW);
+      digitalWrite(C, HIGH);
+      digitalWrite(D, HIGH);
+      digitalWrite(E, LOW);
+      digitalWrite(F, HIGH);
+      digitalWrite(G, HIGH);
+    break;
+    case 6:
+      digitalWrite(A, HIGH);
+      digitalWrite(B, LOW);
+      digitalWrite(C, HIGH);
+      digitalWrite(D, HIGH);
+      digitalWrite(E, HIGH);
+      digitalWrite(F, HIGH);
+      digitalWrite(G, HIGH);
+    break;
+    case 7:
+      digitalWrite(A, HIGH);
+      digitalWrite(B, HIGH);
+      digitalWrite(C, HIGH);
+      digitalWrite(D, LOW);
+      digitalWrite(E, LOW);
+      digitalWrite(F, LOW);
+      digitalWrite(G, LOW);
+    break;
+    case 8:
+      digitalWrite(A, HIGH);
+      digitalWrite(B, HIGH);
+      digitalWrite(C, HIGH);
+      digitalWrite(D, HIGH);
+      digitalWrite(E, HIGH);
+      digitalWrite(F, HIGH);
+      digitalWrite(G, HIGH);
+    break;
+    case 9:
+      digitalWrite(A, HIGH);
+      digitalWrite(B, HIGH);
+      digitalWrite(C, HIGH);
+      digitalWrite(D, LOW);
+      digitalWrite(E, LOW);
+      digitalWrite(F, HIGH);
+      digitalWrite(G, HIGH);
+    break;
+  }  
+}
+
+
+
+// Función para validar la presión de los botones
+int validador()
+{  
+int AUMENTA = digitalRead(aumenta);
+int REDUCE = digitalRead(reduce);
+int RESET = digitalRead(reset);
+int entrarAumenta = 0;
+int entrarReduce = 0;
+unsigned long tiempoPulsadorActual = millis();
+  
+if(AUMENTA == 0 && flagPulsadorAumenta == 0)
+  {
+    tiempoPulsadorAnterior = tiempoPulsadorActual;
+    flagPulsadorAumenta = 1;
+  }
+if(tiempoPulsadorActual - tiempoPulsadorAnterior >= intervaloPulsador)
+  {
+    entrarAumenta = 1;
+  }
+  
+  
+if(REDUCE == 0 && flagPulsadorReduce == 0)
+  {
+    tiempoPulsadorAnterior = tiempoPulsadorActual;
+    flagPulsadorReduce = 1;
+  }
+if(tiempoPulsadorActual - tiempoPulsadorAnterior >= intervaloPulsador)
+  {
+    entrarReduce = 1;
+  }  
+ 
+if(AUMENTA == 1)//cuando no lo presiono vale 1
+  {
+    auxAumenta = 1;
+  	entrarAumenta = 0;
+    flagPulsadorAumenta = 0;
+  }
+if(REDUCE == 1)
+  {
+    auxReduce = 1;
+    entrarReduce = 0;
+    flagPulsadorReduce = 0;
+  }
+if(RESET == 1)
+  {
+    auxReset = 1;
+  }
+
+if(AUMENTA == 0 && AUMENTA != auxAumenta || entrarAumenta == 1) 
+  {//al presionar entra y le cambia el valor al aux y como son iguales
+    auxAumenta = AUMENTA; //no vuelve a entrar hasta que suelte el boton    
+    return aumenta; //entonces retorna 1 sola vez
+  }
+if(REDUCE == 0 && REDUCE != auxReduce || entrarReduce == 1) 
+  {
+    auxReduce = REDUCE; 
+    return reduce; 
+  }
+if(RESET == 0 && RESET != auxReset) 
+  {
+    auxReset = RESET; 
+    return reset; 
+  }
+return 0;
+}
+
