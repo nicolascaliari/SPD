@@ -9,6 +9,9 @@
 #define reduce 5
 #define reset 4
 
+
+#define INTERRUPTOR 3
+
 #define UNIDAD A5
 #define DECENA A4
 #define APAGADOS 0
@@ -19,8 +22,14 @@ int subePrevia=1;
 int resetPrevia=1;
 int contadorDigito=0;
 
+
+
+
+int bajaoprimos = 0;
 void setup()
 {
+
+  pinMode(INTERRUPTOR, INPUT_PULLUP);
   pinMode(reduce, INPUT_PULLUP);
   pinMode(aumenta, INPUT_PULLUP);
   pinMode(reset, INPUT_PULLUP);
@@ -40,9 +49,11 @@ void setup()
 
 
 void loop() {
+  int interruptorEstado = digitalRead(INTERRUPTOR);
+
   int precionado = teclaPrecionado();
 
-  
+  if (interruptorEstado == LOW) {
     if (precionado == aumenta) {
       // Incrementar el número
       contadorDigito++;
@@ -59,9 +70,42 @@ void loop() {
       if(contadorDigito<0)
         contadorDigito=99;
     }
-  
+  }if (interruptorEstado == HIGH)  
+  {
+    // Mostrar números primos entre 0 y 99
+    muestraNumerosPrimos();
+    delay(25);
+  }
 
   muestraNumeros(contadorDigito);
+}
+
+
+//funcion para validar si el numero que llega es primo
+bool esPrimo(int numero) {
+  if (numero <= 1) return false;
+  for (int i = 2; i * i <= numero; i++) {
+    if (numero % i == 0) return false;
+  }
+  return true;
+}
+
+
+
+
+//funcion para mostrar los numeros primos
+void muestraNumerosPrimos() {
+  int primoSiguiente = contadorDigito + 1;
+  while (true) {
+    //valido que no si pasa el 99 se reinicie 
+    if (primoSiguiente > 99) primoSiguiente = 0;
+    if (esPrimo(primoSiguiente)) {
+      contadorDigito = primoSiguiente;
+      muestraNumeros(contadorDigito);
+      return;
+    }
+    primoSiguiente++;
+  }
 }
 
 
