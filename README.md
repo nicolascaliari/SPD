@@ -9,7 +9,9 @@
 
 
 ## Proyecto: Contador binario.
-![Tinkercad](./img/ContadorBinario.png)
+![Tinkercad](./img/1.png)
+![Tinkercad](./img/2.png)
+![Tinkercad](./img/3.png)
 
 
 ## Descripción
@@ -138,7 +140,7 @@ void prendeUnNumero(int digit)
 ~~~
 
 ## :robot: Links del proyecto
-- [proyecto parte 1](https://www.tinkercad.com/things/aOYiibnDjWu)
+- [proyecto parte 1](https://www.tinkercad.com/things/8yg0p5JViK7-tp1-parte-1/editel)
 - [proyecto parte 2](https://www.tinkercad.com/things/4Iubwx2xzL8-tp1/editel)
 - [proyecto parte 2 sensor](https://www.tinkercad.com/things/6Vz955WHeC8-copy-of-tp1/editel?tenant=circuits)
 
