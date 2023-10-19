@@ -31,7 +31,13 @@ La eficiencia de un motor de CC es la relación entre la potencia de entrada y l
 No obstante, existen maneras de garantizar la alta eficiencia de un motor en el caso de los motores de CC en general.
 Con el fin de conseguir un rendimiento óptimo del motor, necesitará un suministro estable de alimentación y deberá asegurarse de que el cableado y la tensión de entrada son los correctos, ya que son igualmente importantes a la hora de obtener la mayor eficiencia posible.
 
+## investigacion del sensor de flexión
 
+Un sensor de flexión, también conocido como sensor de flexión o sensor de doblado, es un dispositivo diseñado para medir la flexión o el grado de curvatura en un objeto o estructura. Estos sensores se utilizan para detectar cambios en la forma de un objeto al aplicar fuerzas que inducen una flexión o curvatura en él. Por lo general, constan de materiales conductores que cambian su resistencia eléctrica cuando se doblan.
+
+Cuando un sensor de flexión se dobla, la resistencia eléctrica en su interior cambia debido a la deformación del material conductor. Esto produce una señal eléctrica que puede ser medida y utilizada para determinar la cantidad de flexión o el ángulo de curvatura. Estos sensores son comunes en aplicaciones donde es necesario medir la flexión o la curvatura de objetos, como en la industria automotriz para controlar sistemas de seguridad, en dispositivos médicos para monitorizar la postura del cuerpo, en la robótica para controlar el movimiento de articulaciones, y en muchas otras aplicaciones.
+
+Los sensores de flexión son versátiles y se pueden encontrar en diversas formas y tamaños, lo que les permite adaptarse a una amplia gama de situaciones y aplicaciones.
 
 ## Función principal
 Esta funcion se encarga de encender y apagar los displays.
