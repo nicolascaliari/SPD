@@ -1,5 +1,5 @@
 # Ejemplo Documentación 
-![Tinkercad](./img/ArduinoTinkercad.jpg)
+![Tinkercad](./img/arduino.jpg)
 
 
 ## Integrantes 
@@ -20,6 +20,17 @@ Primera parte: Se encarga de sumar, restar y resetear un contador. Sumando de a 
 Segunda parte: Cumple la misma funcion que en la parte uno, ademas que mediante un switch podes cambiar de modo, a contador o muestra los numeros primos.
 
 Tercera parte: Cumple la misma funcion que la parte dos, solo que cambiamos el swtich por un sensor de flexibilidad.
+
+
+## investigacion de motor cc
+MOTOR CC
+Un motor de corriente continua (CC) es una máquina giratoria que convierte energía eléctrica en energía mecánica. Esta funcionalidad está basada en el principio de inducción, bajo el cual se crea una fuerza electromagnética a partir de una corriente de entrada que, a la vez, crea un movimiento giratorio.
+El motor de corriente continua se clasifica en dos tipos, es decir, el motor de excitación independiente y el motor autoexcitación.
+Un motor de corriente continua se compone principalmente de dos partes: El estátor (carcasa exterior) crea un campo magnético. El rotor es la parte interior que gira, alimentado con corriente directa a través de delgas, que están en contacto alternante con escobillas fijas.
+La eficiencia de un motor de CC es la relación entre la potencia de entrada y la potencia de salida medida en vatios. Muchas de las piezas y partes del motor influyen (reduciendo el impacto) en la eficiencia del motor, teniendo como resultado el calor generado. Esto también es aplicable a temperaturas muy altas o bajas del entorno inmediato, las cuales a menudo forman parte de los entornos de trabajo de los actuadores industriales.
+No obstante, existen maneras de garantizar la alta eficiencia de un motor en el caso de los motores de CC en general.
+Con el fin de conseguir un rendimiento óptimo del motor, necesitará un suministro estable de alimentación y deberá asegurarse de que el cableado y la tensión de entrada son los correctos, ya que son igualmente importantes a la hora de obtener la mayor eficiencia posible.
+
 
 
 ## Función principal
